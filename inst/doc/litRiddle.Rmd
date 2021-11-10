@@ -1,0 +1,332 @@
+---
+title: "Literary Quality of Dutch Novels with litRiddle"
+author:
+- Joris van Zundert
+- Maciej Eder
+- Karina van Dalen-Oskam
+- Saskia Lensink
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The Riddle of Literary Quality}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+
+
+
+
+
+
+# Introduction
+
+This vignette explains basic functionalities of the package `litRiddle`, a part of the Riddle of Literary Quality project.
+
+The package contains the data of a reader survey about fiction in Dutch, a description of the novels the readers rated, and the results of stylistic measurements of the novels. The package also contains functions to combine, analyze, and visualize these data.
+
+See: [https://literaryquality.huygens.knaw.nl/](https://literaryquality.huygens.knaw.nl/) for further details. Information in Dutch about the package can be found at [https://karinavdo.github.io/RaadselLiteratuur/02_07_data_en_R_package.html](https://karinavdo.github.io/RaadselLiteratuur/02_07_data_en_R_package.html).
+
+If you use `litRiddle` in your academic publications, please consider citing the following reference: 
+
+Karina van Dalen-Oskam (2021). _Het raadsel literatuur. Is literaire kwaliteit meetbaar?_ Amsterdam University Press.
+
+
+# Installation
+
+Install the package from the CRAN repository:
+
+``` R
+install.packages("litRiddle")
+```
+
+Alternatively, try installing it directly from the current GitHub repository:
+
+``` R
+library(devtools)
+install_github("karinavdo/LitRiddleData", build_vignettes = TRUE)
+```
+
+
+
+
+
+# Usage
+
+
+First, one has to activate the package so that its functions become visible to the user:
+
+
+``` {r warning = FALSE}
+library(litRiddle)
+```
+
+
+
+
+
+
+## The dataset
+
+To activate the dataset, type one of the following lines (or all of them):
+
+
+``` {r}
+data(books)
+data(respondents)
+data(reviews)
+```
+
+From now on, the dataset, divided into three data tables, is visible for the user. Plase note that the functions discussed below do not need the dataset to be activated (they take care of it themselves), therefore you don't have to remember about this step if you plan to analyze the data using the functions from the package.
+
+Time to explore some of the data tables. This generic funcion will list all the data points from the table `books`:
+
+``` {r eval = FALSE}
+books
+```
+
+Quite a lot of stuff dumped on the screen, right? It's usually a better idea to select one portion of information at a time, usually one variable or one observation. We assume here that the user has some basic knowledge about R, and particularly s/he knows how to access values in vectors and tables (matrices). To get the titles of the books scored in the survey (or, say, the first 10 titles), one might type:
+
+
+``` {r}
+books$title[1:10]
+```
+
+Well, but how do I know that the name of the particular variable I want to get is `title`, rather than anything else? There exists a function that lists all the variables from the three data tables.
+
+
+
+
+
+
+## Print column names
+
+The function that creates a list of all the column names from all three datasets is named `get.columns()` and needs no arguments to be run. What it means is that you simply type the following code, remembering about the parentheses at the end of the function:
+
+``` {r}
+get.columns()
+```
+
+Not bad indeed. However, how can I know what `s.4a2` stands for? 
+
+
+
+
+
+
+
+## Explain variables
+
+Function that lists an short explanation of what the different column names refer to and what their levels consist of is called `explain()`. To work properly, this function needs an _argument_ to be passed, which basically mean that the user has to specify which dataset s/he is interested in. The options are as follows:
+
+``` {r}
+explain("books")
+explain("reviews")
+explain("respondents")
+```
+
+
+
+
+
+
+
+
+## Combine all data tables
+
+The the package provides a function to combine all information of the survey, reviews, and books into one big dataframe. The user can specify whether or not s/he wants to also load the freqTable with the frequency counts of the word n-grams of the books.
+
+Combine and load all data from the books, respondents and reviews into a new dataframe (tibble format)
+
+``` {r}
+dat = combine.all(load.freq.table = FALSE)
+```
+
+Combine and load all data from the books, respondents and reviews into a new dataframe (tibble format), and additionally also load the frequency table of all word 1grams of the corpus used. 
+
+``` {r}
+dat = combine.all(load.freq.table = TRUE)
+```
+
+
+
+
+
+
+
+
+## Find dataset
+
+Return the name of the dataset where a column can be found.
+
+
+``` {r}
+find.dataset("book.id")
+find.dataset("age.resp")
+```
+
+It's useful to combine it with the already-discussed function `get.columns()`.
+
+
+
+
+
+## Make table (and plot it!)
+
+
+Make a table of frequency counts for one variable, and plot a histogram of the results. Not sure which variable you want to plot? Invoke the above-discussed function `get.columns()` once more, to see which variables you can choose from:
+
+``` {r eval = FALSE}
+get.columns()
+```
+
+Now the fun stuff:
+
+``` {r}
+make.table(table.of = 'age.resp')
+```
+
+You can also adjust the x label, y label, title, and colors:
+
+``` {r}
+make.table(table.of = 'age.resp', xlab = 'age respondent', 
+           ylab = 'number of people', 
+           title = 'Distribution of respondent age', 
+           barcolor = 'red', barfill = 'white')
+```
+
+Note: please mind that in the above examples we used single quotes to indicate arguments (e.g. `xlab = 'age respondent'`), whereas at the beginning of the document, we used double quotes (`explain("books")`). We did it for a reason, namely we wanted to emphasize that the functions provided by the package `litRiddle` are fully compliant with the generic R syntax, which allows for using either single or double quotes to indicate the strings.
+
+
+
+
+
+## Make table of X split by Y
+
+
+
+``` {r}
+make.table2(table.of = 'age.resp', split = 'gender.resp')
+```
+
+``` {r}
+make.table2(table.of = 'literariness.read', split = 'gender.author')
+```
+
+Note that you can only provide an argument to the 'split' variable that has less than 31 unique values, to avoid uninterpretable outputs. E.g., consider the following code:
+
+``` {r}
+make.table2(table.of = 'age.resp', split = 'zipcode') 
+```
+
+You can also adjust the x label, y label, title, and colors:
+
+``` {r}
+make.table2(table.of = 'age.resp', split = 'gender.resp', 
+            xlab = 'age respondent', ylab = 'number of people', 
+            barcolor = 'purple', barfill = 'yellow')
+```
+
+``` {r}
+make.table2(table.of = 'literariness.read', split = 'gender.author', 
+            xlab = 'Overall literariness scores', 
+            ylab = 'number of people', barcolor = 'black', 
+            barfill = 'darkred')
+```
+
+
+
+## Order responses
+
+
+The orginal survey about Dutch fiction was designed to rank the responses using descriptive terms, e.g. "very bad", "neutral", "a bit good" etc. In order to conduct the analyses, the responses were then converted to numerical scales ranging from 1 to 7 (the questions about literariness and literary quality) or from 1 to 5 (the questions about the reviewer's reading patterns). However, if you want the responses converted back to their original form, invoke the function `order.responses()` that transforms the survey responses into ordered factors. Use either "bookratings" or "readingbehavior" to specify which of the survey questions needs to be changed into ordered factors. (We assume here that the user knows what the ordered factors are, because otherwise this function will not seem very useful). Levels of `quality.read` and `quality.notread`: "very bad", "bad", "a bit bad", "neutral", "a bit good", "good", "very good", "NA". Levels `literariness.read` and `literariness.notread`: "absolutely not literary", "non-literary", "not very literary", "between literary and non-literary","a bit literary", "literary", "very literary", "NA". Levels statements 4/12: "completely disagree", "disagree", "neutral", "agree", "completely agree", "NA".
+
+To create a data frame with ordered factor levels of the questions on reading behavior:
+
+``` {r}
+dat.reviews = order.responses('readingbehavior')
+str(dat.reviews)
+```
+
+To create a data frame with ordered factor levels of the book ratings:
+
+``` {r}
+dat.ratings = order.responses('bookratings')
+str(dat.ratings)
+```
+
+
+
+
+
+
+# Likert plots
+
+Next versions of the `litRiddle` package will support likert plots. Visit [https://github.com/jbryer/likert](https://github.com/jbryer/likert) to learn more about the general idea and the implementation in R.
+
+
+
+
+
+
+
+# Topic modeling
+
+Next versions of the `litRiddle` package will support topic modeling of the motivations indicated by the reviewers.
+
+
+
+
+
+
+
+# Documentation
+
+Each function provided by the package has its own help page; the same applies to the datasets:
+
+
+``` {r eval = FALSE}
+help(books)
+help(respondents)
+help(reviews)
+help(frequencies)
+help(combine.all)
+help(explain)
+help(find.dataset)
+help(get.columns)
+help(make.table)
+help(make.table2)
+help(order.responses)
+help(litRiddle) # for the general description of the package
+```
+
+
+
+
+
+
+# Possible issues 
+
+All the datasets use the UTF-8 encoding (also known as the Unicode). This should normally not cause any problems on MacOS and Linux machines, but Windows might be more tricky in this respect. We haven't experienced any inconveniences in our testing environment, but we cannot say the same about all the other machines.
+
+
+
+
+# References
+
+
+**Karina van Dalen-Oskam** (2021). _Het raadsel literatuur. Is literaire kwaliteit meetbaar?_ Amsterdam University Press.
+
+**Karina van Dalen-Oskam** (2014). Prehistory of The Riddle. ('The Riddle of Literary Quality: The search for conventions of literariness', transl. of: The Riddle of Literary Quality. Op zoek naar conventies van literariteit' and was published in: _Vooys: tijdschrift voor letteren_ **32**(3): 25-33.), [https://literaryquality.huygens.knaw.nl/?p=537](https://literaryquality.huygens.knaw.nl/?p=537).
+
+**Corina Koolen, Karina van Dalen-Oskam, Andreas van Cranenburgh, Erica Nagelhout** (2020). Literary quality in the eye of the Dutch reader: The National Reader Survey. _Poetics_ 79: 101439, [https://doi.org/10.1016/j.poetic.2020.101439](https://doi.org/10.1016/j.poetic.2020.101439).
+
+More publications from the project: see [https://literaryquality.huygens.knaw.nl/?page_id=588](https://literaryquality.huygens.knaw.nl/?page_id=588).

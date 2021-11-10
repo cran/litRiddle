@@ -1,0 +1,16 @@
+citHeader("To cite the package 'litRiddle' in publications use:")
+
+citEntry(entry="Book",
+         title = "Het raadsel literatuur. Is literaire kwaliteit meetbaar?",
+         author       = personList(as.person("Karina van Dalen-Oskam")),
+         year         = "2021",
+         address      = "Amsterdam",
+         publisher    = "Amsterdam University Press",
+
+         textVersion =
+         paste("van Dalen-Oskam, K. (2021). ",
+               "Het raadsel literatuur. Is literaire kwaliteit meetbaar? ",
+               "Amsterdam: Amsterdam University Press.",
+               sep = "")
+         )
+

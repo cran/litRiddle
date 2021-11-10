@@ -1,0 +1,16 @@
+
+importFrom(utils, data, str)
+
+import(dplyr, ggplot2)
+
+export(
+    get.columns,
+    combine.all,
+    explain,
+    find.dataset,
+    make.table,
+    make.table2,
+    order.responses
+)
+
+
