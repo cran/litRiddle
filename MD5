@@ -1,4 +1,4 @@
-de86458f05aef96fc24571cad6fdfea4 *DESCRIPTION
+8d24aa31d0051a02c6750d16eb3e0797 *DESCRIPTION
 d56eaf530a4093344ef4fbfbe4cbea7e *NAMESPACE
 2982a7cc7222fbc5ed75229f37bb3a86 *R/columnNames.R
 0bdfcefdd13a6495655d49a7a6a10d09 *R/combineAll.R
@@ -11,9 +11,9 @@ b560c1dc4f43dde847427b0af179a854 *R/orderResponses.R
 a99c37c0bd776ae4552b435e21697e02 *R/stopwords.nl.R
 1770772bce617091503b0aeddf97d451 *R/zzz.R
 5bc8061bbd1fb8933bc3a88c1b741c29 *README.md
-f663ac03ec2244714a659928f1615cda *build/partial.rdb
+d4dc0959980901441b7ee755e5c43831 *build/partial.rdb
 425c733f538a0cb082b8231552d575ec *build/vignette.rds
-270ebc597420d2ffa3d1e17934e703eb *data/books.rda
+19c9d94ff3598f7b96052f8bb2eedb27 *data/books.rda
 1bb4c15a36e852d3299564f2274e1c2a *data/datalist
 52c43a8d889cc947350d4ceb250eb4c7 *data/frequencies.rda
 9c3167a1e862c904a6f11051e26ab69f *data/respondents.rda
@@ -21,7 +21,7 @@ f663ac03ec2244714a659928f1615cda *build/partial.rdb
 3ac28562055cb5aa3ded7918c5aa9041 *inst/CITATION
 d7167aa5ffb7a75983e9fd02ee86d59a *inst/doc/litRiddle.R
 ac9c4a57c837e02e4da05dd940502380 *inst/doc/litRiddle.Rmd
-aa8aef5393f09e6f06220d0d851e7b8a *inst/doc/litRiddle.html
+e1211abe7f7b5227f1f91b7d765bd2fd *inst/doc/litRiddle.html
 0b0794de40f6560751a98ba28e9d465a *man/books.Rd
 83728a288096a8f0fdb35153543dafa8 *man/combine.all.Rd
 b1902a0c0ce8ec03e7194fbdf4876e46 *man/explain.Rd
