@@ -1,13 +1,14 @@
 ---
 title: "Literary Quality of Dutch Novels with litRiddle"
 author:
-- Joris van Zundert
 - Maciej Eder
+- Joris van Zundert
 - Karina van Dalen-Oskam
 - Saskia Lensink
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{The Riddle of Literary Quality}
+  %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -27,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-# Introduction
+## Introduction
 
 This vignette explains basic functionalities of the package `litRiddle`, a part of the Riddle of Literary Quality project.
 
@@ -35,12 +36,17 @@ The package contains the data of a reader survey about fiction in Dutch, a descr
 
 See: [https://literaryquality.huygens.knaw.nl/](https://literaryquality.huygens.knaw.nl/) for further details. Information in Dutch about the package can be found at [https://karinavdo.github.io/RaadselLiteratuur/02_07_data_en_R_package.html](https://karinavdo.github.io/RaadselLiteratuur/02_07_data_en_R_package.html).
 
-If you use `litRiddle` in your academic publications, please consider citing the following reference: 
+These data are also available as individual csv files for persons wanting to work with the data in non R environments. See: https://github.com/karinavdo/RiddleData.
 
-Karina van Dalen-Oskam (2021). _Het raadsel literatuur. Is literaire kwaliteit meetbaar?_ Amsterdam University Press.
+If you use `litRiddle` in your academic publications, please consider citing the following references: 
+
+**Maciej Eder, Lensink, S., van Zundert, J.J., and van Dalen-Oskam, K.H.** (2022). Replicating The Riddle of Literary Quality: The LitRiddle Package for R. In _Digital Humanities 2022 Conference Abstracts_, 636--637. Tokyo: The University of Tokyo / DH2022 Local Organizing Committee. https://dh2022.dhii.asia/abstracts/files/VAN_DALEN_OSKAM_Karina_Replicating_The_Riddle_of_Literary_Qu.html
+
+**Karina van Dalen-Oskam** (2023). _The Riddle of Literary Quality: A Computational Approach._ Amsterdam University Press.
 
 
-# Installation
+
+## Installation
 
 Install the package from the CRAN repository:
 
@@ -48,7 +54,7 @@ Install the package from the CRAN repository:
 install.packages("litRiddle")
 ```
 
-Alternatively, try installing it directly from the current GitHub repository:
+Alternatively, try installing it directly from the GitHub repository:
 
 ``` R
 library(devtools)
@@ -59,7 +65,7 @@ install_github("karinavdo/LitRiddleData", build_vignettes = TRUE)
 
 
 
-# Usage
+## Usage
 
 
 First, one has to activate the package so that its functions become visible to the user:
@@ -83,17 +89,19 @@ To activate the dataset, type one of the following lines (or all of them):
 data(books)
 data(respondents)
 data(reviews)
+data(motivations)
+data(frequencies)
 ```
 
-From now on, the dataset, divided into three data tables, is visible for the user. Plase note that the functions discussed below do not need the dataset to be activated (they take care of it themselves), therefore you don't have to remember about this step if you plan to analyze the data using the functions from the package.
+From now on, the dataset, divided into four data tables, is visible for the user. Please note that the functions discussed below do not need the dataset to be activated (they take care of it themselves), therefore you don't have to remember about this step if you plan to analyze the data using the functions from the package.
 
-Time to explore some of the data tables. This generic funcion will list all the data points from the table `books`:
+Time to explore some of the data tables. This generic function will list all the data points from the table `books`:
 
 ``` {r eval = FALSE}
 books
 ```
 
-Quite a lot of stuff dumped on the screen, right? It's usually a better idea to select one portion of information at a time, usually one variable or one observation. We assume here that the user has some basic knowledge about R, and particularly s/he knows how to access values in vectors and tables (matrices). To get the titles of the books scored in the survey (or, say, the first 10 titles), one might type:
+This command will dump quite a lot of stuff on the screen offering little insight or overview. It's usually a better idea to select one portion of information at a time, usually one variable or one observation. We assume here that the user has some basic knowledge about R, and particularly s/he knows how to access values in vectors and tables (matrices). To get the titles of the books scored in the survey (or, say, the first 10 titles), one might type:
 
 
 ``` {r}
@@ -131,6 +139,8 @@ Function that lists an short explanation of what the different column names refe
 explain("books")
 explain("reviews")
 explain("respondents")
+explain("motivations")
+explain("frequencies")
 ```
 
 
@@ -140,9 +150,9 @@ explain("respondents")
 
 
 
-## Combine all data tables
+## Combine data from books, survey, reviews
 
-The the package provides a function to combine all information of the survey, reviews, and books into one big dataframe. The user can specify whether or not s/he wants to also load the freqTable with the frequency counts of the word n-grams of the books.
+The package provides a function to combine all information of the survey, reviews, and books into one big dataframe. The user can specify whether or not s/he wants to also load the freqTable with the frequency counts of the word n-grams of the books.
 
 Combine and load all data from the books, respondents and reviews into a new dataframe (tibble format)
 
@@ -179,8 +189,8 @@ It's useful to combine it with the already-discussed function `get.columns()`.
 
 
 
-## Make table (and plot it!)
 
+## Make table (and plot it!)
 
 Make a table of frequency counts for one variable, and plot a histogram of the results. Not sure which variable you want to plot? Invoke the above-discussed function `get.columns()` once more, to see which variables you can choose from:
 
@@ -209,9 +219,8 @@ Note: please mind that in the above examples we used single quotes to indicate a
 
 
 
+
 ## Make table of X split by Y
-
-
 
 ``` {r}
 make.table2(table.of = 'age.resp', split = 'gender.resp')
@@ -244,8 +253,9 @@ make.table2(table.of = 'literariness.read', split = 'gender.author',
 
 
 
-## Order responses
 
+
+## Order responses
 
 The orginal survey about Dutch fiction was designed to rank the responses using descriptive terms, e.g. "very bad", "neutral", "a bit good" etc. In order to conduct the analyses, the responses were then converted to numerical scales ranging from 1 to 7 (the questions about literariness and literary quality) or from 1 to 5 (the questions about the reviewer's reading patterns). However, if you want the responses converted back to their original form, invoke the function `order.responses()` that transforms the survey responses into ordered factors. Use either "bookratings" or "readingbehavior" to specify which of the survey questions needs to be changed into ordered factors. (We assume here that the user knows what the ordered factors are, because otherwise this function will not seem very useful). Levels of `quality.read` and `quality.notread`: "very bad", "bad", "a bit bad", "neutral", "a bit good", "good", "very good", "NA". Levels `literariness.read` and `literariness.notread`: "absolutely not literary", "non-literary", "not very literary", "between literary and non-literary","a bit literary", "literary", "very literary", "NA". Levels statements 4/12: "completely disagree", "disagree", "neutral", "agree", "completely agree", "NA".
 
@@ -267,8 +277,185 @@ str(dat.ratings)
 
 
 
+## Frequencies
 
-# Likert plots
+The data frame `frequencies` contains numerical values for word frequencies of the 5000 most frequent words (in a descending order of frequency) of 401 literary novels in Dutch. The table contains relative frequencies, meaning that the original word occurrences from a book were divided  by the total number of words of the book in question. The measurments were obtained using the R package `stylo`, and were later rounded  to the 5th digit. To learn more about the novels themselves, type `help(books)`.
+
+The row names of the `frequencies` data frame contain the titles of the novels corresponding to the `title.short` column in the data frame `books`.
+
+``` {r}
+rownames(frequencies)[10:20]
+```
+
+Listing the relative frequency values for the novel _Weerzin_ by Rene Appel:
+
+``` {r}
+frequencies["Appel_Weerzin",][1:10]
+```
+
+And getting the book information:
+
+``` {r}
+books[books["short.title"]=="Appel_Weerzin",]
+```
+
+
+
+
+
+## Motivations
+
+Version 1.0 of the package introduces a table `motivations`, containing the 200k+ lemmatized and POS tagged tokens making up the text of all motivations. The Dutch Language Institute (INT, Leiden) took care of POS-tagging the data. The tagging was manually corrected by Karina van Dalen-Oskam. We tried to guarantee the highest possible quality, but mistakes may still occur. 
+
+The solution to add a token based table was chosen to not burden the table `reviews` with lots of text, XML, or JSON in additional columns, leading to potential problems with default memory constraints in R.
+
+To retrieve all tokens:
+
+``` {r}
+data(motivations)
+head(motivations, 15)
+```
+
+
+
+### From tokens to text
+
+Usually one will probably want to work with the full text of motivations. A convenience function `motivations.text()` is provided to create a view that has one motivation per row:
+
+``` {r}
+# We're importing `dplyr` to use `tibble` so we can 
+# show very large tables somewhat nicer.
+suppressMessages(library(dplyr))  
+
+mots = motivations.text()
+tibble(mots)
+```
+
+<div style="background-color:rgba(250, 128, 114, 0.35);border:1px solid #A9A9A9;padding:5px;"><b>NOTE</b>: The dplyr package hides the <code style="background-color:rgba(255, 255, 255, 0.5);">explain</code> function from the package litRiddle because it has its own explain function. To use litRiddle's explain function after dplyr has been loaded, call it explicitly, like this: <code style="background-color:rgba(255, 255, 255, 0.5);">litRiddle::explain("books")</code>.</div>
+
+Gathering all motivations for, for instance, one book, requires some trivial merging. Let's see what people said about Binet's *HhhH*. For this we select the book information of the book with ID 46 and we left join (merge) that (`book.id` by `book.id`) with the table `mots` having all the motivations:
+
+``` {r}
+mots_hhhh <- merge(x = books[books["book.id"]==46,], y = mots, by = "book.id", all.x = TRUE)
+tibble(mots_hhhh)
+```
+
+Hmm... pretty wide table, select the `text` column to get an idea of what is being said, and print with the `n` parameter to see more rows:
+
+``` {r}
+print(tibble(mots_hhhh[,"text"]), n = 40)
+```
+
+
+
+### Gathering review information and motivations together
+
+If we also want to include review information, this requires another merge. Rather than trying to combine all data in one huge statement, it is usually easier to follow a step by step methog. First let's collect the motivations for _HhhH_. We will be more selective of columns. If you compare the following query with the `merge` statement above, you will find that we use only author and title from `books` and only repsondent ID and the motivational text from `mots`, while we use `book.id` from both to match for merging.
+
+``` {r}
+mots_hhhh = merge(x = books[books["book.id"] == 46, c("book.id", "author", "title")], y = mots[, c("book.id", "respondent.id", "text")], by = "book.id", all.x = TRUE)
+tibble(mots_hhhh)
+```
+
+We now have a new view that we can again merge with the information in the `reviews` data:
+
+``` {r}
+tibble(merge(x = mots_hhhh, y = reviews, by = c("book.id", "respondent.id"), all.x = TRUE))
+```
+
+Note how we use a vector for `by` to ensure we match on book ID *and* respondent ID. If we would use only `book.id` we would get *all* score for that book by all respondents, but we want the score by these particular respondents that motivated their rating.
+
+And -- being sceptical as we always should be about our strategies -- let us just check that we didn't miss anything, and sample if indeed repsondent 1022 had only one rating for _HhhH_:
+
+``` {r}
+reviews[ reviews["respondent.id"] == 1022 & reviews["book.id"] == 46, ]
+```
+
+
+
+### Working with lemma and POS tag information
+
+Suppose we want to look into word frequencies of motivations. We can use base R `table` to get an idea of how often what combination of lemma and POS tag 
+appears in the motivations:
+
+``` {r}
+toks = motivations  # Remmber: that is a *token* table, one token + lemma + POS tag per row.
+head(table(toks$lemma, toks$upos), n = 30)
+```
+
+Wow, respondents are creative about using punctuation! In the interest of completeness we chose not to clean out all those emoticons from the data set. However, here we don't need those. So we filter, and sort. The code in the next cell is not trivial if you are new to R, or regular expressions. Hopefully the inserted comments will clarify a bit. Note, just in case you run into puzzling errors, this uses the `dplyr.filter` as we imported `dplyr` above. Base R `filter` requires a different approach.
+
+``` {r}
+# filter out tokens that do not start with at least one word character
+# we use regular expression "\w+" which means "more than one word character", 
+# the added backslash prevents R from interpreting the backslash as an
+# escape character. 
+mots = filter(motivations, grepl('\\w+', lemma))
+
+# create a data frame out of a table of raw frequencies.
+# Look up 'table function' in R documentation. 
+mots = data.frame(table(mots$lemma, mots$upos))
+
+# use interpretable column names
+colnames(mots) = c("lemma", "upos", "freq")
+
+# select only useful information, i.e. those lemma+pos combinations 
+# that appear more than 0 times
+mots = mots[mots['freq'] > 0, ]
+
+# sort from most used to least used
+mots = mots[order(mots$freq, decreasing = TRUE), ]
+
+# finally show as a nicer looking table
+tibble(mots)
+```
+
+And rather unsurprisingly it is the pronouns and other functors that lead the pack.
+
+For another exercise, let's look up something about the lemma "boek" (en. "book"):
+
+``` {r}
+mots[mots["lemma"] == "boek", ]
+```
+
+Linguistic parsers are not infallible. Apparently in three cases the parser did not know how to classify the word "boek", in which case the POS tag handed out is "X". Can we find the contexts where those linguistic unknowns were used? For this, first we find the book IDs from the books where this happened:
+
+``` {r}
+# First we find the motivation IDs from the books where this happens.
+boekx = motivations[motivations["lemma"] == "boek" & motivations["upos"] == "X", ]
+boekx
+```
+
+Now we need the full texts of all motivations, so we can find those three motivations we are looking for.
+
+```{r}
+mots_text = motivations.text()
+```
+
+To find the three motivations we merge the `boekx` table and the table with all the motivations, and we keep only those rows that pertain to the three motivation IDs. I.e. we merge on`by="motvation.id"` with `all.x=TRUE`, implying that we will keep all rows from `x` (i.e. the three motivations with the "boek" POS tagged as "X") and that we will drop all non-related `y` (i.e. all those motivations that do not have those linguistically unknown "boek" mentions).
+
+```{r}
+boekx_mots_text =  merge( x = boekx, y = mots_text, by = "motivation.id", all.x = TRUE)
+```
+
+And finally we show what those contexts are:
+
+``` {r}
+tibble(boekx_mots_text[ , c( "book.id.x", "respondent.id.x", "text")])
+```
+
+And just for good measure the full text of the third mention:
+
+``` {r}
+boekx_mots_text[3, "text"]
+```
+
+
+
+
+
+
+## Likert plots
 
 Next versions of the `litRiddle` package will support likert plots. Visit [https://github.com/jbryer/likert](https://github.com/jbryer/likert) to learn more about the general idea and the implementation in R.
 
@@ -278,7 +465,7 @@ Next versions of the `litRiddle` package will support likert plots. Visit [https
 
 
 
-# Topic modeling
+## Topic modeling
 
 Next versions of the `litRiddle` package will support topic modeling of the motivations indicated by the reviewers.
 
@@ -322,11 +509,16 @@ All the datasets use the UTF-8 encoding (also known as the Unicode). This should
 
 # References
 
+**Karina van Dalen-Oskam** (2023). _The Riddle of Literary Quality: A Computational Approach._ Amsterdam University Press.
 
 **Karina van Dalen-Oskam** (2021). _Het raadsel literatuur. Is literaire kwaliteit meetbaar?_ Amsterdam University Press.
 
-**Karina van Dalen-Oskam** (2014). Prehistory of The Riddle. ('The Riddle of Literary Quality: The search for conventions of literariness', transl. of: The Riddle of Literary Quality. Op zoek naar conventies van literariteit' and was published in: _Vooys: tijdschrift voor letteren_ **32**(3): 25-33.), [https://literaryquality.huygens.knaw.nl/?p=537](https://literaryquality.huygens.knaw.nl/?p=537).
+**Maciej Eder, Saskia Lensink, Joris van Zundert,  Karina van Dalen-Oskam** (2022). Replicating The Riddle of Literary Quality: The litRiddle package for R, in: _Digital Humanities 2022 Conference Abstracts_. The University of Tokyo, Japan, 25--29 July 2022, p. 636--637 https://dh2022.dhii.asia/dh2022bookofabsts.pdf
 
 **Corina Koolen, Karina van Dalen-Oskam, Andreas van Cranenburgh, Erica Nagelhout** (2020). Literary quality in the eye of the Dutch reader: The National Reader Survey. _Poetics_ 79: 101439, [https://doi.org/10.1016/j.poetic.2020.101439](https://doi.org/10.1016/j.poetic.2020.101439).
 
 More publications from the project: see [https://literaryquality.huygens.knaw.nl/?page_id=588](https://literaryquality.huygens.knaw.nl/?page_id=588).
+
+
+
+

@@ -1,7 +1,7 @@
 # litRiddle: R package for exploring literary quality
 
 **Authors:** Maciej Eder, Karina van Dalen-Oskam, Joris van Zundert, Saskia Lensink<br/>
-**License:** [GPL-3](https://opensource.org/licenses/GPL-3.0)
+**License:** [GPL-3](https://opensource.org/license/gpl-3-0/)
 
 
 This is an R package being a part of the Riddle of Literary Quality project.
@@ -10,12 +10,11 @@ The package contains the data of a reader survey about fiction in Dutch, a descr
 
 See: [https://literaryquality.huygens.knaw.nl/](https://literaryquality.huygens.knaw.nl/) for further details. Information in Dutch about the package can be found at [https://karinavdo.github.io/RaadselLiteratuur/02_07_data_en_R_package.html](https://karinavdo.github.io/RaadselLiteratuur/02_07_data_en_R_package.html).
 
-If you use `litRiddle` in your academic publications, please consider citing the following reference: 
+If you use `litRiddle` in your academic publications, please consider citing the following references: 
 
-Karina van Dalen-Oskam (2021). _Het raadsel literatuur. Is literaire kwaliteit meetbaar?_ Amsterdam University Press.
+Maciej Eder, Lensink, S., Van Zundert, J.J., and Van Dalen-Oskam, K.H. (2022). “Replicating The Riddle of Literary Quality: The LitRiddle Package for R.” In _Digital Humanities 2022 Conference Abstracts_, 636–637. Tokyo: The University of Tokyo / DH2022 Local Organizing Committee. https://dh2022.dhii.asia/abstracts/163.
 
-
-
+Karina van Dalen-Oskam (2023). _The Riddle of Literary Quality: A Computational Approach._ Amsterdam University Press.
 
 ## Installation
 
@@ -48,6 +47,8 @@ help(books)
 help(respondents)
 help(reviews)
 help(frequencies)
+help(motivations)
+help(motivations.text)
 help(combine.all)
 help(explain)
 help(find.dataset)
@@ -66,11 +67,13 @@ A concise description of the package's functionalities (in Dutch) is also provid
 
 ## General info
 
+**Karina van Dalen-Oskam** (2023). _The Riddle of Literary Quality: A Computational Approach._ Amsterdam University Press.
+
 **Karina van Dalen-Oskam** (2021). _Het raadsel literatuur. Is literaire kwaliteit meetbaar?_ Amsterdam University Press.
 
-**Karina van Dalen-Oskam (2015). Prehistory of The Riddle. ('The Riddle of Literary Quality: The search for conventions of literariness', transl. of: The Riddle of Literary Quality. Op zoek naar conventies van literariteit' and was published in: _Vooys: tijdschrift voor letteren_ **32** (2014), 3, p. 25-33.), [https://literaryquality.huygens.knaw.nl/?p=537](https://literaryquality.huygens.knaw.nl/?p=537).
+**Maciej Eder, Saskia Lensink, Joris van Zundert, Karina van Dalen-Oskam** (2022). “Replicating The Riddle of Literary Quality: The litRiddle package for R”, in: _Digital Humanities 2022 Conference Abstracts._ The University of Tokyo, Japan, 25–29 July 2022, p. 636-637 https://dh2022.dhii.asia/dh2022bookofabsts.pdf
 
-**Corina Koolen, Karina van Dalen-Oskam, Andreas van Cranenburgh, Erica Nagelhout** (2020). Literary quality in the eye of the Dutch reader: The National Reader Survey. _Poetics_ 79: 101439, [https://doi.org/10.1016/j.poetic.2020.101439](https://doi.org/10.1016/j.poetic.2020.101439).
+**Corina Koolen, Karina van Dalen-Oskam, Andreas van Cranenburgh, Erica Nagelhout** (2020). Literary quality in the eye of the Dutch reader: The National Reader Survey. _Poetics_ 79: 101439, https://doi.org/10.1016/j.poetic.2020.101439.
 
 
 More publications can be found at [https://literaryquality.huygens.knaw.nl/?page_id=588](https://literaryquality.huygens.knaw.nl/?page_id=588)

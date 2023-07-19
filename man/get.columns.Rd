@@ -35,7 +35,7 @@ Saskia Lensink, Maciej Eder
 
 
 \seealso{
-\code{\link{reviews}}, \code{\link{respondents}}, \code{\link{books}}, \code{\link{explain}} 
+\code{\link{reviews}}, \code{\link{respondents}}, \code{\link{books}}, \code{\link{motivations}}, \code{\link{explain}} 
 }
 
 

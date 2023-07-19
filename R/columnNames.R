@@ -15,11 +15,15 @@ get.columns <- function() {
     data("reviews", package = "litRiddle", envir = environment()) 
     reviews <- get("reviews", envir = environment()) 
     #
+    data("motivations", package = "litRiddle", envir = environment()) 
+    motivations <- get("motivations", envir = environment()) 
+    #
     
     colnames.books = colnames(books)
     colnames.resp = colnames(respondents)
     colnames.reviews = colnames(reviews)
-    columns = list(books = colnames.books, respondents = colnames.resp, reviews = colnames.reviews)
+    colnames.motivations = colnames(motivations)
+    columns = list(books = colnames.books, respondents = colnames.resp, reviews = colnames.reviews, motivations=colnames.motivations)
     
     return(columns)
 }

@@ -10,7 +10,9 @@ export(
     find.dataset,
     make.table,
     make.table2,
-    order.responses
+    order.responses,
+    motivations.sentences,
+    motivations.text
 )
 
 

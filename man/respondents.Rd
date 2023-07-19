@@ -32,7 +32,7 @@ Karina van Dalen-Oskam, Joris van Zundert
 
 \seealso{
 \code{\link{get.columns}}, \code{\link{explain}}, \code{\link{books}}, 
-\code{\link{reviews}}, \code{\link{frequencies}}
+\code{\link{reviews}}, \code{\link{frequencies}}, \code{\link{motivations}} 
 }
 
 

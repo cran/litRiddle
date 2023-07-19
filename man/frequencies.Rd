@@ -36,7 +36,7 @@ Karina van Dalen-Oskam, Maciej Eder
 
 \seealso{
 \code{\link{get.columns}}, \code{\link{explain}}, \code{\link{books}}, 
-\code{\link{reviews}}, \code{\link{respondents}}
+\code{\link{reviews}}, \code{\link{respondents}}, \code{\link{motivations}} 
 }
 
 

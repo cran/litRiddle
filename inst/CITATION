@@ -1,16 +1,39 @@
-citHeader("To cite the package 'litRiddle' in publications use:")
+          
+bibentry(bibtype = "Misc",
+    title = "litRiddle: Dataset and Tools to Research the Riddle of Literary Quality",
+    author = c(
+            person("Maciej", "Eder", role = c("aut", "cre"),
+#               comment = "",
+                email = "maciejeder@gmail.com"),
+            person("Joris", "van Zundert", role = "aut",
+#               comment = "",
+                ),
+            person("Saskia", "Lensink", role = "aut"),
+            person("Karina", "van Dalen-Oskam", role = "aut")),
+    copyright = "GPL3",
+    url = "https://CRAN.R-project.org/package=litRiddle",
+    urldate = "2023-06-15",
+    publisher = "CRAN",
+    year = "2023"
+)
 
-citEntry(entry="Book",
-         title = "Het raadsel literatuur. Is literaire kwaliteit meetbaar?",
-         author       = personList(as.person("Karina van Dalen-Oskam")),
-         year         = "2021",
-         address      = "Amsterdam",
-         publisher    = "Amsterdam University Press",
 
-         textVersion =
-         paste("van Dalen-Oskam, K. (2021). ",
-               "Het raadsel literatuur. Is literaire kwaliteit meetbaar? ",
-               "Amsterdam: Amsterdam University Press.",
-               sep = "")
-         )
+
+bibentry(bibtype = "InProceedings",
+    title = "Replicating The Riddle of Literary Quality: The litRiddle package for R",
+    author = c(
+            person("Maciej", "Eder", role = c("aut", "cre"),
+#               comment = "",
+                email = "maciejeder@gmail.com"),
+            person("Joris", "van Zundert", role = "aut",
+#               comment = "",
+                ),
+            person("Saskia", "Lensink", role = "aut"),
+            person("Karina", "van Dalen-Oskam", role = "aut")),
+    url = "https://dh2022.dhii.asia/abstracts/files/VAN_DALEN_OSKAM_Karina_Replicating_The_Riddle_of_Literary_Qu.html",
+    booktitle = "Digital Humanities 2022: Conference Abstracts",
+    publisher = "University of Tokyo",
+    year = "2022",
+    pages = "636--637",
+)
 
